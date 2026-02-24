@@ -8,16 +8,11 @@ const modal = document.getElementById('modal');
 const modalImg = document.getElementById('modalImg');
 const fechar = document.querySelector('.fechar');
 const btnBaixar = document.getElementById('btnBaixar');
-const btnCompartilhar = document.getElementById('btnCompartilhar');
-const btnCopiarLink = document.getElementById('btnCopiarLink');
-const menuCompartilhar = document.getElementById('menuCompartilhar');
-
+const btnCopiarLink = document.getElementById('btnCopiarLink')
 let urlAtual = '';
-
 botao.addEventListener('click', buscarNekos);
 fechar.addEventListener('click', fecharModal);
 btnBaixar.addEventListener('click', baixarImagem);
-btnCompartilhar.addEventListener('click', abrirMenuCompartilhar);
 btnCopiarLink.addEventListener('click', copiarLink);
 
 window.addEventListener('click', (e) => {
@@ -122,72 +117,18 @@ async function baixarImagem() {
         
         window.URL.revokeObjectURL(blobUrl);
         
-        mostrarNotificacao('Imagem baixada com sucesso! ⬇️');
+        mostrarNotificacao('Imagem baixada com sucesso!');
     } catch(erro) {
         console.error('Erro ao baixar:', erro);
-        mostrarNotificacao('Erro ao baixar a imagem ❌');
+        mostrarNotificacao('Erro ao baixar a imagem');
     }
-}
-
-function abrirMenuCompartilhar(e) {
-    e.stopPropagation();
-    
-    const rect = btnCompartilhar.getBoundingClientRect();
-    menuCompartilhar.style.display = menuCompartilhar.style.display === 'none' ? 'flex' : 'none';
-    menuCompartilhar.style.position = 'fixed';
-    
-    let top = rect.bottom + 10;
-    let right = 20;
-    
-    if (top < 0) {
-        top = 10;
-    }
-    
-    if (right + 200 > window.innerWidth) {
-        right = window.innerWidth - 220;
-    }
-    
-    menuCompartilhar.style.top = top + 'px';
-    menuCompartilhar.style.right = right + 'px';
-
-    document.getElementById('btnWhatsApp').onclick = () => 
-        compartilharEm('whatsapp', urlAtual);
-    document.getElementById('btnTwitter').onclick = () => 
-        compartilharEm('twitter', urlAtual);
-    document.getElementById('btnFacebook').onclick = () => 
-        compartilharEm('facebook', urlAtual);
-    document.getElementById('btnPinterest').onclick = () => 
-        compartilharEm('pinterest', urlAtual);
-}
-
-function compartilharEm(rede, url) {
-    const texto = 'Olha esse neko incrível! 🐱';
-    let linkCompartilhamento = '';
-
-    switch(rede) {
-        case 'whatsapp':
-            linkCompartilhamento = `https://wa.me/?text=${encodeURIComponent(texto + ' ' + url)}`;
-            break;
-        case 'twitter':
-            linkCompartilhamento = `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(url)}`;
-            break;
-        case 'facebook':
-            linkCompartilhamento = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-            break;
-        case 'pinterest':
-            linkCompartilhamento = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(texto)}`;
-            break;
-    }
-
-    window.open(linkCompartilhamento, '_blank', 'width=600,height=400');
-    menuCompartilhar.style.display = 'none';
 }
 
 function copiarLink() {
     navigator.clipboard.writeText(urlAtual).then(() => {
-        mostrarNotificacao('Link copiado! 🔗');
+        mostrarNotificacao('Link copiado!');
     }).catch(() => {
-        mostrarNotificacao('Erro ao copiar link ❌');
+        mostrarNotificacao('Erro ao copiar link');
     });
 }
 
