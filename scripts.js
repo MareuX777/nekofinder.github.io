@@ -1,3 +1,6 @@
+// Caro DEVedor, se funciona, não mexa.
+
+
 const botao = document.getElementById('buscarBtn');
 const loading = document.getElementById('loading');
 const galeria = document.getElementById('galeria');
